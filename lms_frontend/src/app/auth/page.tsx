@@ -9,6 +9,8 @@ import { CommonAlert, CommonSpinner } from '@/app/components/common/notification
 import Image from 'next/image'
 import Link from 'next/link';
 import axios from 'axios';
+import { login } from '../../../redux/authSlice';
+import { useDispatch } from 'react-redux';
 
 
 const staticUsers = [{id: '1',email: 'rubicon@gmail.com',password: 'Pass@123',role: 'user'}];
@@ -20,6 +22,7 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showLoader, setShowLoader] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const imageUrls = [
     '/log-1.jpg',
@@ -62,15 +65,16 @@ export default function LoginPage() {
 
 
   const cookies = Cookies;
-
+  
   const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
     try {
-      if (email.length === 0 || password.length === 0) {
-        setErrorMessage('Email and Password are required');
-        return;
-      }
+      console.log("Sending request to backend11111111111");
+      // if (email.length === 0 || password.length === 0) {
+      //   setErrorMessage('Email and Password are required');
+      //   return;
+      // }
   
       setErrorMessage('');
       setShowLoader(true);
@@ -79,7 +83,7 @@ export default function LoginPage() {
       
   
       // Use fetch instead of axios
-      const response = await fetch('http://localhost:5116/api/Users', {
+      const response = await fetch('http://localhost:5116/api/Auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,13 +97,13 @@ export default function LoginPage() {
   
         localStorage.setItem('token', token);
         cookies.set('token', token);
-  
+        dispatch(login());
         if (role === 'Admin') {
-          router.push('/admin/dashboard');
+          router.push('/admin/home');
         } else if (role === 'User') {
           router.push(`/dashboard`);
         } else {
-          router.push(`/home`);
+          router.push(`/user/home`);
         }
       } else {
         setErrorMessage('Invalid email or password');
@@ -134,7 +138,7 @@ export default function LoginPage() {
           
           <div className="col-span-6">
             <CommonTextInput
-              id="email_id"
+              id="email"
               required={true}
               placeholder="Enter Email"
               onChange={handleChange}
@@ -143,14 +147,15 @@ export default function LoginPage() {
           </div>
           <div className="col-span-6">
             <CommonTextInput
-              id="password1"
+              id="password"
               required={true}
               placeholder="Password"
               onChange={handleChange}
             />
           </div>
-          <div className="flex justify-center sm:mt-6 p-4" onClick={() => setShowLoader(true)}>
-            <CommonButtonSolidBlue text="Loginnncn" />
+          <div className="flex justify-center sm:mt-6 p-4">
+          <CommonButtonSolidBlue type="submit" loading={true} text="Login"  />
+              
           </div>
           <div className="flex justify-between text-center mt-2 text-md text-[color:var(--primaryPink)] font-semibold">
             <p className="text-[color:var(--mainTitleColor)] cursor-pointer mt-4" onClick={() => setPopupForgotPass(true)}>

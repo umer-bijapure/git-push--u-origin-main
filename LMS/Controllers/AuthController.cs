@@ -31,6 +31,7 @@ namespace LMS.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            Console.WriteLine("LLLLLLLLLLLLLLLLooooooooooooooooooogin");
             var result = await _authService.LoginAsync(model);
 
             if (result.Succeeded)

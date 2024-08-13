@@ -40,7 +40,7 @@ const MainNavbar: React.FC<{ userId: string}> = ({ userId }) => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(setNavColor('bg-blue-800')); // Change to desired color when logged in
+      dispatch(setNavColor('bg-[#FCFCFC]')); // Change to desired color when logged in
     }
   }, [isLoggedIn, dispatch]);
 
@@ -49,9 +49,9 @@ const MainNavbar: React.FC<{ userId: string}> = ({ userId }) => {
   };
 
   const handleLogout = () => {
-    setLogin(true)
+   
     dispatch(logout());
-    dispatch(setNavColor('bg-gray-800'));
+    dispatch(setNavColor('bg-[#040f49]'));
     router.push("/");
   };
 
@@ -63,7 +63,7 @@ const MainNavbar: React.FC<{ userId: string}> = ({ userId }) => {
       </Link>
         <div className='w-[510px] max-auto p-4'>
           <div className='flex items-center justify-center gap-x-6 text-white'>
-            {!login ? (
+            {!isLoggedIn ? (
               <>
                 <Link href="/contact-us">
                   <button className='hover:ring-2 m-2 p-2 ring-white shadow-mg rounded-xl hover:bg-white hover:text-[color:var(--mainTitleColor)] hover:scale-105 duration-100' >Contact</button>
@@ -94,7 +94,7 @@ const MainNavbar: React.FC<{ userId: string}> = ({ userId }) => {
         {isInputVisible && (
           <div className="floating-menu-content-logout">
             <div className='p-2 flex flex-col items-center space-y-4'>
-              {login ? (
+              {isLoggedIn ? (
                 <>
                   <Link href="/contact">
                     <CommonButtonSolidBlue text='Contact' className='pl-10 pr-10 hover:text-white hover:bg-[color:var(--primaryColor)] pt-1 pb-1 rounded-md' />

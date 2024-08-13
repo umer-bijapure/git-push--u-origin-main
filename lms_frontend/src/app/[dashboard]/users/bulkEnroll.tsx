@@ -105,7 +105,6 @@ const BulkEnrollUsers: FC<BulkEnrollUsersProps> = ({ onClose, handleSubmit, load
         if (!response.ok) {
           const errorData = await response.json();
           if (response.status === 409 && errorData?.duplicates) {
-            console.warn(errorData,"HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
             if (errorData.duplicates.duplicateUsernames) {
               duplicateUsersArray.usernames.push(errorData.duplicates.duplicateUsernames);
             }
@@ -115,7 +114,6 @@ const BulkEnrollUsers: FC<BulkEnrollUsersProps> = ({ onClose, handleSubmit, load
           } else {
             const errorMessage = errorData[""]?.[0] || "An unknown error occurred.";
             setErrorText(`Failed to create user at row ${i + 1}`+ errorMessage)
-        
             setShowError(true)
           }
         }
@@ -130,9 +128,9 @@ const BulkEnrollUsers: FC<BulkEnrollUsersProps> = ({ onClose, handleSubmit, load
 
     setDuplicateUsers(duplicateUsersArray); // Update state with duplicates
     setIsProcessing(false);
-    alert("Bulk user enrollment process completed.");
+    // alert("Bulk user enrollment process completed.");
   };
-console.warn(duplicateUsers,"KKKKKKKKKK")
+
   return (
     <CommonCreateEditSlideover
       title="Bulk Enroll Users"
@@ -142,6 +140,7 @@ console.warn(duplicateUsers,"KKKKKKKKKK")
       loading={loading}
       showError={showError}
       errorText={errorText}
+     
     >
       <div className="col-span-6 sm:col-span-3">
         <label className="block text-sm font-medium text-gray-700">Select CSV File</label>

@@ -35,7 +35,7 @@ export const CommonTextInput: React.FC<CommonTextInputProps> = ({
       type="text"
       disabled={disabled}
       required={required}
-      className="mt-1 block w-full rounded-md border border-gray-300 p-4 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 disabled:bg-gray-100 sm:text-sm"
+      className="mt-1 block w-full rounded-md border border-gray-300 p-4 shadow-sm focus:border-[color:var(--mainTitleLightColor)] focus:outline-none focus:ring-[color:var(--mainTitleLightColor)] disabled:bg-gray-100 sm:text-sm"
       maxLength={maxLength}
       autoComplete={autoComplete}
       onChange={onChange}
@@ -57,7 +57,7 @@ const CommonLabel: React.FC<CommonLabelProps> = ({ id, title, required = false, 
       {title}
       {required ? <div className="text-red-500">*</div> : null}
       {tooltip ? (
-        <div className="px-2 text-blue-600">
+        <div className="px-2 text-[color:var(--mainTitleLightColor)]">
           <FontAwesomeIcon icon={faInfoCircle} fixedWidth />
         </div>
       ) : null}
@@ -100,7 +100,7 @@ export const CommonPasswordInput: React.FC<CommonPasswordInputProps> = ({
         required={required}
         onChange={onChange}
         disabled={disabled}
-        className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 disabled:bg-gray-100 sm:text-sm"
+        className="mt-1 block w-full rounded-md border border-gray-300 p-4 shadow-sm focus:border-[color:var(--mainTitleLightColor)] focus:outline-none focus:ring-[color:var(--mainTitleLightColor)] disabled:bg-gray-100 sm:text-sm"
         maxLength={maxLength}
         autoComplete={autoComplete}
         tabIndex={tabIndex}
@@ -277,7 +277,7 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
       name={id}
       id={id}
       onChange={onChange}
-      className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 disabled:bg-gray-100 sm:text-sm"
+      className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-[color:var(--mainTitleLightColor)] focus:outline-none focus:ring-[color:var(--mainTitleLightColor)] disabled:bg-gray-100 sm:text-sm"
       defaultValue={defaultValue}
       value={value}
       disabled={disabled}
@@ -438,7 +438,7 @@ export const CommonDateTimeSelect: React.FC<CommonDateTimeSelectProps> = ({
       type="datetime-local"
       name={id}
       id={id}
-      className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 disabled:bg-gray-100 sm:text-sm"
+      className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-[color:var(--mainTitleLightColor)] focus:outline-none focus:ring-[color:var(--mainTitleLightColor)] disabled:bg-gray-100 sm:text-sm"
       defaultValue={defaultValue}
       tabIndex={tabIndex}
       disabled={disabled}
@@ -472,7 +472,7 @@ export const CommonDateSelect: React.FC<CommonDateSelectProps> = ({
       name={id}
       id={id}
       onChange={onChange}
-      className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 disabled:bg-gray-100 sm:text-sm"
+      className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-[color:var(--mainTitleLightColor)] focus:outline-none focus:ring-[color:var(--mainTitleLightColor)] disabled:bg-gray-100 sm:text-sm"
       defaultValue={defaultValue}
       value={value}
       min={minValue}

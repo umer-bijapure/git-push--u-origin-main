@@ -12,6 +12,7 @@
   --primaryColor:#C4D559;
   --primaryPink:#F25C78;
   --lightBackgroundColor:#030303;
+  --primaryLight:#FCFCFC;
 }
 
 @media (prefers-color-scheme: dark) {

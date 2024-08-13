@@ -1,6 +1,6 @@
 import { FC, FormEvent, ReactNode } from 'react';
 import { CommonButtonSolidBlue, CommonButtonText } from './buttons';
-import { CommonAlert } from './notifications';
+import { CommonAlert, SuccessNotification } from './notifications';
 
 
 interface CommonCreateEditSlideoverProps {
@@ -14,6 +14,8 @@ interface CommonCreateEditSlideoverProps {
   children: ReactNode;
   loading?: boolean;
   disabled?: boolean;
+  showSuccess?:boolean;
+  successtext?:string;
 }
 
 export const CommonCreateEditSlideover: FC<CommonCreateEditSlideoverProps> = ({
@@ -27,6 +29,8 @@ export const CommonCreateEditSlideover: FC<CommonCreateEditSlideoverProps> = ({
   children,
   loading,
   disabled,
+  showSuccess,
+  successtext
 }) => {
   return (
     <CommonSlideover
@@ -36,6 +40,8 @@ export const CommonCreateEditSlideover: FC<CommonCreateEditSlideoverProps> = ({
       onClose={onClose}
       showError={showError}
       errorText={errorText}
+      showSuccess={showSuccess}
+      successText={successtext}
       width={width || 'w-3/4'}
     >
       <CommonSlideoverContentContainer>{children}</CommonSlideoverContentContainer>
@@ -82,8 +88,10 @@ interface CommonSlideoverContentContainerProps {
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
     title: string;
     description?: string;
-    errorText?: string;
     showError?: boolean;
+    errorText?: string;
+    showSuccess?:boolean;
+    successText?:string;
     children: ReactNode;
   }
   
@@ -95,6 +103,8 @@ export  const CommonSlideover: FC<CommonSlideoverProps> = ({
     description,
     errorText,
     showError,
+    showSuccess,
+    successText,
     children,
   }) => {
     return (
@@ -117,12 +127,20 @@ export  const CommonSlideover: FC<CommonSlideoverProps> = ({
           <div className="flex w-full">
             
             {/* <LoginBannerRed show={showError}>{errorText}</LoginBannerRed> */}
-            {showError && errorText &&
-            (
-              <div>sdvsdvsdvsdvsd
-                <CommonAlert message={errorText} type="error" />
-              </div>
-            )}
+            {   (showError && errorText )?
+              (
+                <div>
+                  <CommonAlert message={errorText} type="error" />
+                </div>
+              )
+              : (showSuccess && successText)?
+              (
+                <div>
+                  <SuccessNotification message={successText} />
+                </div>
+              )
+              :''
+            }
           </div>
           {children}
         </form>

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using LMS.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,8 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader();
         });
 });
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Add other services here
 

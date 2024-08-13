@@ -448,3 +448,4 @@ C:\Users\umerb\OneDrive\Desktop\lms_frontend\LMS\bin\Debug\net8.0\refs\WindowsBa
 C:\Users\umerb\OneDrive\Desktop\lms_frontend\LMS\obj\Debug\net8.0\LMS.genruntimeconfig.cache
 C:\Users\umerb\OneDrive\Desktop\lms_frontend\LMS\obj\Debug\net8.0\ref\LMS.dll
 C:\Users\umerb\OneDrive\Desktop\lms_frontend\LMS\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\umerb\OneDrive\Desktop\lms_frontend\LMS\obj\Debug\net8.0\LMS.sourcelink.json

@@ -1,16 +1,23 @@
 import { CommonFormPasswordInput, CommonFormTextInput } from '@/app/components/common/inputs';
 import { CommonCreateEditSlideover } from '@/app/components/common/slideovers';
-import { FC, useState } from 'react';
+import React,{ FC, useState } from 'react';
 
 interface AddUserProps {
   onClose: () => void;
   loading: boolean;
   
-  showError: boolean;
-  errorText: string;
+
 }
 
-const AddUser: FC<AddUserProps> = ({ onClose, loading, showError, errorText }) => {
+const AddUser: FC<AddUserProps> = ({ onClose, loading }) => {
+  const [errorText, setErrorText] = React.useState('');
+  const [showError, setShowError] = React.useState(false); // Processing state
+  const [successText, setSuccessText] = React.useState('');
+  const [showSuccess, setShowSuccess] = React.useState(false); // Processing state
+
+ 
+  const [progress, setProgress] = useState<number>(0); // Progress state
+  const [isProcessing, setIsProcessing] = useState<boolean>(false); // Processing state
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -32,7 +39,8 @@ const AddUser: FC<AddUserProps> = ({ onClose, loading, showError, errorText }) =
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.warn("JJJJJJJJJJJJJJJJJJJJJHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+    setShowError(false)
+    setShowSuccess(false)
     try {
       const response = await fetch('http://localhost:5116/api/Users/create-user', {
         method: 'POST',
@@ -41,19 +49,18 @@ const AddUser: FC<AddUserProps> = ({ onClose, loading, showError, errorText }) =
         },
         body: JSON.stringify(formData)
       });
-
+      const errorData = await response.json();
+      
       if (response.ok) {
-        // Handle successful submission (e.g., show a success message, close the modal)
-        onClose();
+        setShowSuccess(true);
+        setSuccessText(errorData.message);
       } else {
-        // Handle errors
-        const data = await response.json();
-        console.error(data);
-        // Set error state or display error message
+        const errorMessage = errorData[""]?.[0] || errorData.message;
+        setErrorText(errorMessage)
+        setShowError(true)
       }
     } catch (error) {
       console.error('Error:', error);
-      // Handle network or unexpected errors
     }
   };
 
@@ -66,6 +73,8 @@ const AddUser: FC<AddUserProps> = ({ onClose, loading, showError, errorText }) =
       loading={loading}
       showError={showError}
       errorText={errorText}
+      showSuccess={showSuccess}
+      successtext={successText}
     >
       <div className="col-span-6 sm:col-span-3">
         <CommonFormTextInput id="firstName" title="First name" required={true} onChange={handleChange} />
