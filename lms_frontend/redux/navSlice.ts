@@ -6,7 +6,7 @@ interface NavState {
 }
 
 const initialState: NavState = {
-  color: 'bg-gray-800', // Default color
+  color: 'bg-[#040f49]', // Default color
 };
 
 const navSlice = createSlice({

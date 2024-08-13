@@ -46,62 +46,75 @@ body {
   grid-gap: 10px;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5); 
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
 }
 
-.hexagon {
-  width: 200px;
-  height: 230px;
-  background-color:#3b50c7 ;
+/* Base hexagon styles */
+.hexagon, .hexagon2 {
+  width: 15vw; /* Reduced width */
+  height: 17vw; /* Reduced height */
+  background-color: #3b50c7;
   position: relative;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
-  z-index: 1; 
+  z-index: 50;
 }
+
 .hexagon2 {
-  width: 200px;
-  height: 230px;
-  background-color:#9ea3c4 ;
-  position: relative;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
-  z-index: 1; 
-  
+  background-color: #9ea3c4;
 }
 
-.hexagon:hover {
-  background-color: #c6d6d6; /* Change to your desired hover background color */
+/* Hover effects */
+.hexagon:hover, .hexagon2:hover {
+  background-color: #c6d6d6;
   box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
-  z-index: 1; 
-}
-.hexagon2:hover {
-  background-color: #f1fafa; /* Change to your desired hover background color */
-  box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
-  opacity: 60;
-  z-index: 1; 
+  z-index: 50;
 }
 
-
-/* Adjust margins to fine-tune the positioning */
-.hexagon:nth-child(1) {
-  margin-top: -30px;
-  margin-bottom: -30px;
-  z-index: 1; 
-}
-
-.hexagon:nth-child(2) {
-  margin-top: -30px;
-  margin-bottom: -30px;
-  z-index: 1; 
+/* Position adjustments */
+.hexagon:nth-child(1),
+.hexagon:nth-child(2),
+.hexagon:nth-child(3) {
+  margin-top: -3vw;
+  margin-bottom: -3vw;
 }
 
 .hexagon:nth-child(3) {
-  margin-top: 190px;
-  margin-left:-164px;
-  z-index: 1; 
-  
+  margin-top: 17vw;
+  margin-left: -13vw;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hexagon-container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+  }
+
+  .hexagon, .hexagon2 {
+    width: 25vw;
+    height: 28vw;
+  }
+
+  .hexagon:nth-child(3) {
+    margin-left: -12vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .hexagon-container {
+    grid-template-columns: 1fr;
+  }
+
+  .hexagon, .hexagon2 {
+    width: 35vw;
+    height: 40vw;
+  }
+
+  .hexagon:nth-child(3) {
+    margin-left: 0;
+  }
 }
 
 

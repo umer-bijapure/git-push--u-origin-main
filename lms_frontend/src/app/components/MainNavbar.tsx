@@ -73,7 +73,7 @@ const MainNavbar: React.FC<{ userId: string}> = ({ userId }) => {
                 </Link>
                 <Link href="/auth">
                 <button className='z-10 m-2 p-2 pl-4 pr-4 hover:ring-white shadow-mg rounded-xl bg-[color:var(--primaryPink)] hover:text-white hover:scale-110 duration-100'>Login</button></Link>
-                <Link href="/auth">
+                <Link href="/auth/signup">
                 <button className=' m-2 p-2 pl-2 pr-2 hover:ring-white shadow-mg rounded-xl bg-[color:var(--primaryPink)] hover:text-white hover:scale-110 duration-100' >Register</button></Link>
              
               </>

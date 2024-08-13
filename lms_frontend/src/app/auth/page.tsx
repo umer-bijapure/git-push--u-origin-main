@@ -119,9 +119,9 @@ export default function LoginPage() {
   
 
   return (
-    <div className="flex w-full items-center justify-center h-screen py-10 bg-[color:var(--mainTitleColor)] ">
-      <div className="w-2/3 m-20 p-4 shadow-md hover:bg-white bg-white bg-opacity-40 shadow-xl">
-        <div className='flex items-center justify-center'>
+    <div className="grid grid-cols-2 w-full items-start justify-between h-screen bg-[color:var(--mainTitleColor)] ">
+      <div className="col-span-1 p-4 shadow-md hover:bg-white bg-white bg-opacity-40 shadow-xl w-2/3">
+        <div className='flex items-center mt-20 justify-center'>
         <Image  src='/rubiconversity.png' width={200} height={200} alt={'Rubicon'}/></div> 
       
 
@@ -134,7 +134,7 @@ export default function LoginPage() {
         )}
         {errorMessage.length > 0 ? <CommonAlert message={errorMessage} type="error" /> : <></>}
 
-        <form onSubmit={formSubmitHandler} className="my-2 gird grid-cols-2 col-span-6 space-y-2 p-20">
+        <form onSubmit={formSubmitHandler} className="my-2 flex flex-col justify-center space-y-2 p-4 ">
           
           <div className="col-span-6">
             <CommonTextInput
@@ -157,7 +157,9 @@ export default function LoginPage() {
           <CommonButtonSolidBlue type="submit" loading={true} text="Login"  />
               
           </div>
-          <div className="flex justify-between text-center mt-2 text-md text-[color:var(--primaryPink)] font-semibold">
+
+        </form>
+        <div className="flex justify-between text-center mt-2 text-md text-[color:var(--primaryPink)] font-semibold">
             <p className="text-[color:var(--mainTitleColor)] cursor-pointer mt-4" onClick={() => setPopupForgotPass(true)}>
               Forgot Password?
             </p>
@@ -167,11 +169,10 @@ export default function LoginPage() {
             </p>
             </Link>
           </div>
-        </form>
       </div>
-      <div className="w-full flex flex-col justify-center items-center mt-[-400px]">
+      <div className=" col-span-1 w-full flex flex-col justify-start items-center">
   {/* First grid with two hexagons */}
-  <div className="flex gap-2 ml-[300px] p-10">
+  <div className="flex gap-2">
     {[6].map((index) => {
       const position = calculatePosition(index);
       return (
@@ -183,12 +184,14 @@ export default function LoginPage() {
             top: `${position.top}px`,
           }}
         >
+         
           <img src={imageUrls[index]} alt={`Image ${index + 1}`} className="w-full h-full object-cover hover:opacity-20" />
+          
         </div>
       );
     })}
   </div>
-  <div className="flex gap-2 mt-[246px]">
+  <div className="flex gap-2">
     {[0, 1].map((index) => {
       const position = calculatePosition(index);
       return (
@@ -200,6 +203,7 @@ export default function LoginPage() {
             top: `${position.top}px`,
           }}
         >
+          
           <img src={imageUrls[index]} alt={`Image ${index + 1}`} className="w-full h-full object-cover hover:opacity-60" />
         </div>
       );
@@ -207,13 +211,13 @@ export default function LoginPage() {
   </div>
 
   {/* Second grid with the third hexagon */}
-  <div className="flex gap-2 mt-[-100px] ml-[78px] ">
+  <div className="flex gap-2">
     {[2,3].map((index) => {
       const position = calculatePosition(index);
       return (
         <div
           key={index}
-          className={`w-200 h-230 relative bg-blue-500 hexagon2 opacity-50 transition duration-300 ease-in-out col-span-2`}
+          className={`relative bg-blue-500 hexagon2 opacity-50 transition duration-300 ease-in-out col-span-2`}
           style={{
             left: `${position.left}px`,
             top: `${position.top}px`,
@@ -224,24 +228,8 @@ export default function LoginPage() {
       );
     })}
   </div>
-  <div className="flex gap-2 mt-[-110px]">
-    {[4,5].map((index) => {
-      const position = calculatePosition(index);
-      return (
-        <div
-          key={index}
-          className={`w-140 h-180 relative  hexagon2 opacity-20 transition duration-300 ease-in-out col-span-2 `}
-          style={{
-            left: `${position.left}px`,
-            top: `${position.top}px`,
-          }}
-        >
-          <img src={imageUrls[index]} alt={`Image ${index + 1}`} className="w-full h-full object-cover hover:opacity-20" />
-        </div>
-      );
-    })}
-  </div>
-</div>
+
+      </div>
 
 
 

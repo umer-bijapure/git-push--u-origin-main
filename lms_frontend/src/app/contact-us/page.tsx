@@ -66,7 +66,7 @@ export default function ContactUs({}: Props) {
       });
   };
 
-  return <div className='min-h-[90vh] py-8 px-4 flex flex-col-reverse lg:flex-row align-middle justify-start bg-white'>
+  return <div className='min-h-[90vh] mt-20 py-8 px-4 flex flex-col-reverse lg:flex-row align-middle justify-start bg-white'>
     <div className='flex-1 m-4 flex flex-col align-middle justify-start'>
       <h3 className='font-bold text-lg lg:text-2xl my-4 text-[color:var(--primaryPink)]'>For Enquiry</h3>
       <div className='mt-4 mb-2 flex flex-row align-middle justify-start'>
