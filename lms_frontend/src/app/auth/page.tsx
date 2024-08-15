@@ -185,7 +185,7 @@ export default function LoginPage() {
           }}
         >
          
-          <img src={imageUrls[index]} alt={`Image ${index + 1}`} className="w-full h-full object-cover hover:opacity-20" />
+          <img src={imageUrls[index]}  className="w-full h-full object-cover hover:opacity-20" />
           
         </div>
       );
@@ -204,14 +204,14 @@ export default function LoginPage() {
           }}
         >
           
-          <img src={imageUrls[index]} alt={`Image ${index + 1}`} className="w-full h-full object-cover hover:opacity-60" />
+          <img src={imageUrls[index]} className="w-full h-full object-cover hover:opacity-60" />
         </div>
       );
     })}
   </div>
 
   {/* Second grid with the third hexagon */}
-  <div className="flex gap-2">
+  <div className="sm:flex gap-2">
     {[2,3].map((index) => {
       const position = calculatePosition(index);
       return (
@@ -223,7 +223,7 @@ export default function LoginPage() {
             top: `${position.top}px`,
           }}
         >
-          <img src={imageUrls[index]} alt={`Image ${index + 1}`} className="w-full h-full object-cover hover:opacity-60" />
+          <img src={imageUrls[index]} className="w-full h-full object-cover hover:opacity-60" />
         </div>
       );
     })}

@@ -7,7 +7,7 @@ using Newtonsoft.Json; // Add this at the top if not already present
 
 namespace LMS.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Users")]
     [ApiController]
     public class UsersController : ControllerBase
     {

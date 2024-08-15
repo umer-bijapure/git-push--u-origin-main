@@ -4,6 +4,7 @@ using LMS.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240815085709_AddCourseCategorySubCOurses")]
+    partial class AddCourseCategorySubCOurses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,7 +197,7 @@ namespace LMS.Migrations
 
                     b.HasIndex("InstitutionId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("LMS.Models.CourseCategory", b =>
@@ -507,7 +510,7 @@ namespace LMS.Migrations
             modelBuilder.Entity("LMS.Models.Course", b =>
                 {
                     b.HasOne("LMS.Models.CourseCategory", "CourseCategory")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("CourseCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -612,6 +615,11 @@ namespace LMS.Migrations
                     b.Navigation("Modules");
 
                     b.Navigation("Quizzes");
+                });
+
+            modelBuilder.Entity("LMS.Models.CourseCategory", b =>
+                {
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("LMS.Models.Group", b =>

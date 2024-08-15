@@ -8,11 +8,13 @@
   --background-end-rgb: 255, 255, 255;
   --mainTitleColor: #040f49;
   --mainTitleLightColor:#4B86B4;
+  --textColor:#9fb6ca;
+
   --background:rgba(52, 152, 219, 0.5);
   --primaryColor:#C4D559;
   --primaryPink:#F25C78;
   --lightBackgroundColor:#030303;
-  --primaryLight:#FCFCFC;
+  --primaryLight:#fcfcfa;
 }
 
 @media (prefers-color-scheme: dark) {

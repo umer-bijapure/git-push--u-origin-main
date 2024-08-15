@@ -5,7 +5,7 @@ using LMS.Services;
 
 namespace LMS.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {

@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+<!-- to build project backend -->
+dotnet build
+
+<!-- each changes in database models in window command line or vs code -->
+
+dotnet dotnet ef migrations add Addmigrationnamhere
+dotnet ef database update
+
+<!-- in visual basic or CLI -->
+add-migration Addmigrationnamhere
+Update-Database

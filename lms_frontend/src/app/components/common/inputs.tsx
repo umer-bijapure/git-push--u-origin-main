@@ -53,7 +53,7 @@ interface CommonLabelProps {
 
 const CommonLabel: React.FC<CommonLabelProps> = ({ id, title, required = false, tooltip }) => {
   return (
-    <label htmlFor={id} className="flex text-sm font-semibold text-gray-700">
+    <label htmlFor={id} className="flex text-sm font-semibold text-[color:var(--mainTitleLightColor)]">
       {title}
       {required ? <div className="text-red-500">*</div> : null}
       {tooltip ? (

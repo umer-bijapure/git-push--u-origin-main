@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using LMS.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+    
 builder.Services.AddControllers();
 
 // Add services to the container.
@@ -35,6 +35,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICourseCategoryService, CourseCategoryService>();
+
 
 // Add other services here
 

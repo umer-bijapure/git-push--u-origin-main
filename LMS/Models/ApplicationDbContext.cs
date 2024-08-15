@@ -11,8 +11,8 @@ namespace LMS.Models
         {
         }
 
-        // public DbSet<CourseCategory> CourseCategories { get; set; }
-        // public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseCategory> CourseCategories { get; set; }
+        public DbSet<Course> Courses { get; set; }
         // public DbSet<Quiz> Quizzes { get; set; }
         // public DbSet<Module> Modules { get; set; }
         // public DbSet<Group> Groups { get; set; }

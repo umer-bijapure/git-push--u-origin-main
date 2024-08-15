@@ -119,9 +119,9 @@ export  const CommonSlideover: FC<CommonSlideoverProps> = ({
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col items-start justify-center space-y-1 border-b border-gray-200 px-6 py-3">
-            <h2 className="select-none text-center text-lg font-semibold text-gray-800">{title}</h2>
+            <h2 className="select-none text-center text-lg font-semibold text-[color:var(--mainTitleLightColor)]">{title}</h2>
             {description && (
-              <div className="select-none text-sm text-gray-400">{description}</div>
+              <div className="select-none text-sm text-[color:var(--textColor)]">{description}</div>
             )}
           </div>
           <div className="flex w-full">

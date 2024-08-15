@@ -7,7 +7,7 @@ namespace LMS.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public int CourseCategoryId { get; set; }
+        public int CourseCategoryId { get; set; }  // Foreign key to CourseCategory
         public CourseCategory CourseCategory { get; set; }
         public List<Quiz> Quizzes { get; set; }
         public List<Module> Modules { get; set; }

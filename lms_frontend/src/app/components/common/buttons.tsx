@@ -45,7 +45,7 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
       type={type}
       onClick={onClick}
       className={
-        "flex min-w-20 items-center justify-center rounded-md border bg-opacity-100 py-2 px-2 text-sm font-semibold disabled:cursor-default disabled:bg-opacity-50 lg:min-w-28 lg:px-4 " +
+        "flex min-w-20 items-center justify-center rounded-md border border hover:bg-[color:var(--primaryLight)] bg-opacity-100 py-2 px-2 text-sm font-semibold disabled:cursor-default disabled:bg-opacity-50 lg:min-w-28 lg:px-4 text-[color:var(--mainTitleLightColor)]" +
         className
       }
       disabled={disabled}
@@ -116,7 +116,6 @@ interface CommonButtonSolidBlueProps extends CommonButtonProps {
         text={text}
       />
         
-      
     );
   };
 

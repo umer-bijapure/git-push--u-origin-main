@@ -29,5 +29,9 @@ namespace LMS.Services
             // Ensure that the context is properly used to avoid possible issues
             return await _context.Users.ToListAsync();
         }
+        // public async Task<ApplicationUser?> UpdateUser(string userId,newData)()
+        // {
+            
+        // }
     }
 }
