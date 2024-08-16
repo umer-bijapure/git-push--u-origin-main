@@ -11,7 +11,8 @@ import { CommonTextInput } from '@/app/components/common/inputs';
 import { CommonButton, CommonButtonGreen, CommonButtonSolidBlue } from '@/app/components/common/buttons';
 import AddCourse from './addCourse';
 import AddCourseCategory from './category/creatCategory';
-import CourseDetail from './profile/profile';
+import { CourseDetail } from './profile/profile';
+
 
 
 export interface Course {
@@ -23,26 +24,23 @@ export interface Course {
     endDate: Date;
     profilePicture:string;
     createdAt:Date;
+    modules: string[];
+    assessmentsCount: number;
+    attendance: string[];
+    certificates: string[];
     
   }
 
   export default function Home() {
-    const [selectedMonth, setSelectedMonth] = useState<string>('All Months');
-    const [selectedYear, setSelectedYear] = useState<string>('All Years');
+
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortBy, setSortBy] = useState(''); // Added sorting state
     const [showDetails, setShowDetails] = useState(false);
     const [selectedCourse, setSelectedCourse] = useState<Course | null>(null); // State for selected course
     const [details, setDetails] = useState<Course[]>();
     const [activeSlideover, setActiveSlideover] = useState<null | 'user' | 'course' | 'courseCategory'>(null);
-    const [selectedCategory, setSelectedCategory] = useState<string>('All Categories'); 
     const [loading, setLoading] = useState(false);
     const [showError, setShowError] = useState(false);
     const [errorText, setErrorText] = useState('');
-  
-    const months = ['All Months', 'January', 'February', 'March'];
-    const years = ['All Years', '2022', '2023', '2024'];
-    const categories = ['All Categories', 'IT and Software', 'Aptitude Development'];
   
     const fetchCourses = async () => {
       setLoading(true);

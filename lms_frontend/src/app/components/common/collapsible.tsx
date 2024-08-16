@@ -1,7 +1,9 @@
 'use client';
 import React, { ReactNode, useState,FC } from 'react';
-import { FaChevronDown } from 'react-icons/fa';
-
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import styled from 'styled-components';
+import Image from 'next/image';
+import { FaPlayCircle } from 'react-icons/fa';
 interface CollapsibleComponentProps {
   expanded: boolean;
   children: ReactNode;
@@ -158,5 +160,187 @@ export const EditCollapsible: React.FC<CollapsibleProps> = ({ header, children, 
     </div>
   );
 };
+
+
+
+
+import { FaCog, FaTimes } from 'react-icons/fa';
+
+// Define types for the component props
+interface CollapsibleMenuProps {
+  items: string[];
+}
+
+const MenuContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const MenuButton = styled.div`
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #333;
+  transition: background 0.3s;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+
+  &:hover {
+    background: #e0e0e0;
+  }
+`;
+
+const MenuContent = styled.div<{ isOpen: boolean }>`
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: max-width 0.3s ease-out, opacity 0.3s ease-out;
+  max-width: ${(props) => (props.isOpen ? '600px' : '0')};
+  opacity: ${(props) => (props.isOpen ? '1' : '0')};
+  z-index: 1;
+`;
+
+const MenuItem = styled.div<{ isSelected: boolean }>`
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  color: ${(props) => (props.isSelected ? '#007bff' : '#333')};
+  cursor: pointer;
+  background: ${(props) => (props.isSelected ? '#e0f0ff' : 'transparent')};
+  transition: background 0.3s, color 0.3s;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+`;
+
+const CloseButton = styled.div`
+  padding: 10px;
+  cursor: pointer;
+  color: #333;
+  transition: background 0.3s;
+  border-left: 1px solid #ddd;
+
+  &:hover {
+    background: #e0e0e0;
+  }
+`;
+
+const SettingsIcon = styled.div`
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  transition: background 0.3s;
+  z-index: 3;
+
+  &:hover {
+    background: #e0e0e0;
+  }
+`;
+
+interface CollapsibleMenuProps {
+  items: string[];
+  onItemClick: (item: string) => void;
+  onIsOpenChange?: (isOpen: boolean) => void; // New prop for passing isOpen value to parent
+  selectedItem?: string; // Add selectedItem prop
+}
+
+
+
+export const CollapsibleMenu: React.FC<CollapsibleMenuProps> = ({ items, onItemClick, onIsOpenChange }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+  const toggleMenu = () => {
+    const newIsOpen = !isOpen;
+    setIsOpen(newIsOpen);
+    if (onIsOpenChange) {
+      onIsOpenChange(newIsOpen); // Notify parent of the isOpen change
+    }
+  };
+
+  const handleMenuItemClick = (item: string) => {
+    setSelectedItem(item); // Set the selected item
+    onItemClick(item);
+  };
+  return (
+    <MenuContainer>
+      {!isOpen && (
+        <SettingsIcon onClick={toggleMenu}>
+          <FaCog />
+        </SettingsIcon>
+      )}
+      <MenuContent isOpen={isOpen}>
+      {items.map((item, index) => (
+          <MenuItem
+            key={index}
+            onClick={() => handleMenuItemClick(item)}
+            isSelected={selectedItem === item}
+          >
+            {item}
+          </MenuItem>
+        ))}
+        <CloseButton onClick={() => { 
+          setIsOpen(false); 
+          if (onIsOpenChange) onIsOpenChange(false); // Notify parent of the isOpen change
+        }}>
+          <FaTimes />
+        </CloseButton>
+      </MenuContent>
+    </MenuContainer>
+  );
+};
+
+
+
+interface TabsProps {
+  selectedTab: string;
+}
+
+export const Tabs: React.FC<TabsProps> = ({ selectedTab }) => {
+  return (
+    <div className="p-4">
+      {selectedTab === 'Modules' && (
+        <div className="flex flex-wrap gap-x-2 w-auto items-center justify-start">
+          <div className="flex gap-x-2 items-center justify-center shadow-md shadow-gray-100 rounded-md p-4">
+            <Image src="/course1.jpg" alt="Course 1" width={80} height={80} />
+            <h2 className="relative rounded-md flex items-center justify-center bg-[color:var(--primaryPink)] text-white p-2 gap-x-2">
+              <FaPlayCircle />PLAY
+            </h2>
+          </div>
+          <div className="flex gap-x-2 items-center justify-center shadow-md shadow-gray-100 rounded-md p-4">
+            <Image src="/course2.jpg" alt="Course 2" width={80} height={80} />
+            <h2 className="relative rounded-md flex items-center justify-center bg-[color:var(--primaryPink)] text-white p-2 gap-x-2">
+              <FaPlayCircle />PLAY
+            </h2>
+          </div>
+        </div>
+      )}
+      {selectedTab === 'Assessments' && <div>Assessments Content</div>}
+      {selectedTab === 'Attendance' && <div>Attendance Content</div>}
+      {selectedTab === 'Certificates' && <div>Certificates Content</div>}
+    </div>
+  );
+};
+
 
 
