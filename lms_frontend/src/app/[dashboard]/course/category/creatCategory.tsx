@@ -16,7 +16,7 @@ export interface Categories {
 interface AddCourseCategoryProps {
   onClose: () => void;
   loading: boolean;
-  showError: (message: string) => void;
+  showError: boolean;
   errorText: string;
 }
 
@@ -133,7 +133,7 @@ const AddCourseCategory: FC<AddCourseCategoryProps> = ({ onClose, loading, showE
       handleSubmit={formSubmitHandler}
       onClose={onClose}
       loading={loading}
-      showError={true}
+      showError={showError}
       errorText={errorText}
     >
       <div className="flex justify-end col-span-6">

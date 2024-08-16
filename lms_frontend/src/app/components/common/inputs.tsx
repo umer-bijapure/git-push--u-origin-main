@@ -359,6 +359,7 @@ interface CommonFormDateTimeSelectProps {
   disabled?: boolean;
   labelSide?: boolean;
   defaultValue?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CommonFormDateTimeSelect: React.FC<CommonFormDateTimeSelectProps> = ({
@@ -369,11 +370,12 @@ export const CommonFormDateTimeSelect: React.FC<CommonFormDateTimeSelectProps> =
   disabled,
   labelSide,
   defaultValue,
+  onChange
 }) => {
   return (
     <div className={"flex flex-1 " + (labelSide ? "flex-row items-center space-x-2" : "flex-col")}>
       <CommonLabel id={id} title={title} required={required} tooltip={tooltip} />
-      <CommonDateTimeSelect id={id} defaultValue={defaultValue} disabled={disabled} />
+      <CommonDateTimeSelect id={id} defaultValue={defaultValue} disabled={disabled} onChange={onChange}  />
     </div>
   );
 };
@@ -425,6 +427,7 @@ interface CommonDateTimeSelectProps {
   disabled?: boolean;
   tabIndex?: number;
   defaultValue?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CommonDateTimeSelect: React.FC<CommonDateTimeSelectProps> = ({
@@ -432,6 +435,7 @@ export const CommonDateTimeSelect: React.FC<CommonDateTimeSelectProps> = ({
   disabled,
   tabIndex,
   defaultValue,
+  onChange
 }) => {
   return (
     <input
@@ -442,6 +446,7 @@ export const CommonDateTimeSelect: React.FC<CommonDateTimeSelectProps> = ({
       defaultValue={defaultValue}
       tabIndex={tabIndex}
       disabled={disabled}
+      onChange={onChange}
     />
   );
 };

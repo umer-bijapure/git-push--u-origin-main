@@ -4,17 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { FaArrowAltCircleLeft, FaPlayCircle } from 'react-icons/fa';
-export interface Course {
-  course_name: string;
-  course_id: string;
-  date: Date;
-  amount: number;
-  month:string;
-  year:string;
-  profile_picture:string;
-  description:string;
-  createdAt:Date;
-}
+import { Course } from '../page';
+
 interface CourseDetailsProps {
 
     onClick:()=>void;
@@ -27,17 +18,17 @@ interface CourseDetailsProps {
         <div className=' flex flex-col'>
             <div className='w-screen h-[30vh] lg:h-[40vh] relative'>
                 <div className='absolute top-0 left-0 w-full h-[30vh] lg:h-[40vh]  bg-black/80 z-10]'/>
-                <Image className='absolute z-1' layout='fill' objectFit='cover' src={details.profile_picture} alt='/' />
+                {/* <Image className='absolute z-1' layout='fill' objectFit='cover' src={details.profilePicture} alt='/' /> */}
                 <div className='absolute top-[70%] hover:-translate-y-1 hover:scale-110  duration-300 cursor-pointer max-w-[1240px] w-full left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%] text-white z-10 p-2'>
-                    <h1 className='py-2 text-3xl '>{details.course_name}</h1>
-                    <h3>{details.month} {details.year}</h3>
+                    <h1 className='py-2 text-3xl '>{details.title}</h1>
+                    {/* <h3>{details.startDate.toString()} {details.endDate.toString()} </h3> */}
                     <h2>{details.description}</h2>
                 </div>
                 <div className='flex items-center gap-x-2 cursor-pointer text-white text-xl absolute bottom-0 p-2 m-2 hover:-translate-y-1 hover:scale-110  duration-300 cursor-pointer' onClick={onClick}><h1 className='text-3xl '><FaArrowAltCircleLeft/></h1> Back</div>
             </div>
             <div className='max-w-[1240px] mx-auto p-2 grid md:grid-cols-5 gap-8 pt-8'>
                 <div className='col-span-4'>
-                    <p>{details.course_name}</p>
+                    <p>{details.title}</p>
                   
                     <p>
                       {details.description}
