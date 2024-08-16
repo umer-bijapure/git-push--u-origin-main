@@ -217,14 +217,14 @@ const MenuContent = styled.div<{ isOpen: boolean }>`
 
 const MenuItem = styled.div<{ isSelected: boolean }>`
   padding: 10px;
-  border-bottom: 1px solid #ddd;
-  color: ${(props) => (props.isSelected ? '#007bff' : '#333')};
+  border-bottom:  '#C4D559 2px solid';
+  color: ${(props) => (props.isSelected ? '#ffffff' : '#4B86B4')};
   cursor: pointer;
-  background: ${(props) => (props.isSelected ? '#e0f0ff' : 'transparent')};
+  background: ${(props) => (props.isSelected ? '#C4D559' : 'transparent')};
   transition: background 0.3s, color 0.3s;
 
   &:hover {
-    background: #f0f0f0;
+    background: #C4D559;
   }
 `;
 
@@ -236,7 +236,8 @@ const CloseButton = styled.div`
   border-left: 1px solid #ddd;
 
   &:hover {
-    background: #e0e0e0;
+    background: #F25C78;
+    color: #ffffff;
   }
 `;
 

@@ -32,7 +32,6 @@ export interface Course {
   }
 
   export default function Home() {
-
     const [searchTerm, setSearchTerm] = useState('');
     const [showDetails, setShowDetails] = useState(false);
     const [selectedCourse, setSelectedCourse] = useState<Course | null>(null); // State for selected course
