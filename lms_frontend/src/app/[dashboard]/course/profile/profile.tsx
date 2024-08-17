@@ -4,6 +4,14 @@ import { FaArrowAltCircleLeft, FaPlayCircle } from 'react-icons/fa';
 import { CollapsibleMenu } from '@/app/components/common/collapsible';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faClipboardList, faCalendarAlt, faAward} from '@fortawesome/free-solid-svg-icons';
+import Modules from '../modules/page';
+import Participants from '../courseUsers/participants';
+interface Module {
+  id: string;
+  title: string;
+  pdfLink?: string; // Add other properties if needed
+}
+
 
 interface CourseDetailsProps {
   onClick: () => void;
@@ -27,6 +35,8 @@ export const CourseDetail: React.FC<CourseDetailsProps> = ({ onClick, details })
   const [selectedMenuItem, setSelectedMenuItem] = useState('Participants');
   const [selectedTab, setSelectedTab] = useState('Modules');
   const menuItems = ['Participants', 'Announcements', 'Reports', 'Analytics'];
+  const [moduleData, setModuleData] = useState<Module | null>(null);
+  const [activeSlideover, setActiveSlideover] = useState<null | 'Participants' | 'Announcements' |'Reports'|'Analytics'>('Participants');
   // const tabs = ['Modules', 'Assessments', 'Attendance', 'Certificates'];
   const tabs = [
     { name: 'Modules', icon: faBook },
@@ -34,12 +44,19 @@ export const CourseDetail: React.FC<CourseDetailsProps> = ({ onClick, details })
     { name: 'Attendance', icon: faCalendarAlt },
     { name: 'Certificates', icon: faAward }
   ];
-  
 
-  const handleMenuItemClick = (item: string) => {
-    setSelectedMenuItem(item);
-    
+  const onClose = () => {
+    setActiveSlideover(null);
   };
+  const handleMenuItemClick = (item: string) => {
+    const validItems: ('Participants' | 'Announcements' |'Reports'|'Analytics')[] = ['Participants', 'Announcements','Reports','Analytics'];
+    
+    if (validItems.includes(item as 'Participants' | 'Announcements' |'Reports'|'Analytics')) {
+      setActiveSlideover(item as 'Participants' | 'Announcements' |'Reports'|'Analytics');
+      setSelectedMenuItem(item);
+    }
+  };
+  
 
   const handleTabChange = (tab: string) => {
     setSelectedTab(tab);
@@ -49,8 +66,11 @@ export const CourseDetail: React.FC<CourseDetailsProps> = ({ onClick, details })
     switch (selectedMenuItem) {
       case 'Participants':
         return (
-          <div className='flex flex-wrap gap-x-2 w-auto items-center justify-start p-2'>
-            Participants
+          <div>
+            { activeSlideover==="Participants" &&
+            <Participants
+              onClose={onClose}
+            />}
           </div>
         );
       case 'Announcements':
@@ -67,31 +87,7 @@ export const CourseDetail: React.FC<CourseDetailsProps> = ({ onClick, details })
   const renderTabContent = () => {
     switch (selectedTab) {
       case 'Modules':
-        return (
-          <div>
-            <h2>Modules</h2>
-            <div className='flex flex-wrap gap-x-2 w-auto items-center justify-start p-2'>
-            {/* Sample participants content */}
-            <div className='flex gap-x-2 w-auto items-center justify-center shadow-md shadow-gray-100 rounded-md p-4'>
-              <Image src='/course1.jpg' alt='Course 1' width={80} height={80} />
-              <h2 className='relative rounded-md flex items-center justify-center bg-[color:var(--primaryPink)] text-white p-2 gap-x-2'>
-                <FaPlayCircle /> PLAY
-              </h2>
-            </div>
-            <div className='flex gap-x-2 w-auto items-center justify-center shadow-md shadow-gray-100 rounded-md p-4'>
-              <Image src='/course2.jpg' alt='Course 2' width={80} height={80} />
-              <h2 className='relative rounded-md flex items-center justify-center bg-[color:var(--primaryPink)] text-white p-2 gap-x-2'>
-                <FaPlayCircle /> PLAY
-              </h2>
-            </div>
-          </div>
-            <ul>
-              {details.modules?.map((module, index) => (
-                <li key={index}>{module}</li>
-              ))}
-            </ul>
-          </div>
-        );
+        return <Modules modules={details?.modules} />;
       case 'Assessments':
         return (
           <div>
@@ -165,31 +161,29 @@ export const CourseDetail: React.FC<CourseDetailsProps> = ({ onClick, details })
             </div>
           </div>
         </div>
-        {isMenuOpen? renderMenuContent():
-        <>
-
-<div className="border-b border-gray-200 dark:border-gray-700">
-  <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-    {tabs.map((tab) => (
-      <li key={tab.name} className="me-2">
-        <button
-          onClick={() => handleTabChange(tab.name)}
-          className={`inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg 
-                      ${selectedTab === tab.name ? 'text-[color:var(--mainTitleLightColor)] border-[color:var(--primaryColor)] dark:text--[color:var(--primaryColor)] dark:border-[color:var(--primaryColor)]' : 
-                       'text-[color:var(--textColor)] border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'}`}
-        >
-          <FontAwesomeIcon icon={tab.icon} className="h-5 w-5 me-2" /> {/* Render the icon */}
-          {tab.name} {/* Render the tab name */}
-        </button>
-      </li>
-    ))}
-  </ul>
-</div>
-
+        {isMenuOpen && renderMenuContent()}
+        
+          <div className="border-b border-gray-200 dark:border-gray-700">
+            <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+              {tabs.map((tab) => (
+                <li key={tab.name} className="me-2">
+                  <button
+                    onClick={() => handleTabChange(tab.name)}
+                    className={`inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg 
+                                ${selectedTab === tab.name ? 'text-[color:var(--mainTitleLightColor)] border-[color:var(--primaryColor)] dark:text--[color:var(--primaryColor)] dark:border-[color:var(--primaryColor)]' : 
+                                'text-[color:var(--textColor)] border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'}`}
+                  >
+                    <FontAwesomeIcon icon={tab.icon} className="h-5 w-5 me-2" /> {/* Render the icon */}
+                    {tab.name} {/* Render the tab name */}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         <div className='p-4 mt-4'>
           {renderTabContent()}
         </div>
-        </>}
+        
       </div>
     </div>
   );

@@ -6,7 +6,8 @@ namespace LMS.Services
 {
     public interface IUserService
     {
-        Task<ApplicationUser> GetUserByIdAsync(string userId);
+        Task<ApplicationUser?> GetUserByIdAsync(string userId);
         Task<IEnumerable<ApplicationUser>> GetAllUsersAsync();
+        Task<ApplicationUser?> UpdateUserAsync(ApplicationUser user); // Updated method
     }
 }

@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json; // Add this at the top if not already present
+using LMS.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMS.Controllers
 {
@@ -12,10 +13,12 @@ namespace LMS.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ICourseService _courseService;
 
-        public UsersController(UserManager<ApplicationUser> userManager)
+        public UsersController(UserManager<ApplicationUser> userManager, ICourseService courseService)
         {
             _userManager = userManager;
+            _courseService = courseService;
         }
 
         [HttpGet]
@@ -24,7 +27,7 @@ namespace LMS.Controllers
             return Ok(new { Message = "User API is working" });
         }
 
-[HttpPost("create-user")]
+        [HttpPost("create-user")]
         public async Task<IActionResult> CreateUser([FromBody] RegisterModel model)
         {
             if (!ModelState.IsValid)
@@ -77,5 +80,49 @@ namespace LMS.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpPost("{userId}/enroll/{courseId}")]
+        public async Task<IActionResult> EnrollUserInCourse(string userId, int courseId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new { Message = "User not found." });
+            }
+
+            var course = await _courseService.GetCourseByIdAsync(courseId);
+            if (course == null)
+            {
+                return NotFound(new { Message = "Course not found." });
+            }
+
+            // Check if user is already enrolled in the course
+            var userCourse = user.UserCourses.FirstOrDefault(uc => uc.CourseId == courseId);
+            if (userCourse != null)
+            {
+                return Conflict(new { Message = "User is already enrolled in this course." });
+            }
+
+            // Enroll user in the course
+            user.UserCourses.Add(new UserCourse
+            {
+                UserId = userId,
+                CourseId = courseId
+            });
+
+            // Save changes
+            await _userManager.UpdateAsync(user);
+
+            return Ok(new { Message = "User enrolled in the course successfully." });
+        }
+
+        [HttpGet("allusers")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _userManager.Users.Select(user => new { user.Id, user.Email }).ToListAsync();
+            return Ok(users);
+        }
+
+
+        // You can add other methods here if needed
     }
 }

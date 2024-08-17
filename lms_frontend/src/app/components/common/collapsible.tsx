@@ -249,12 +249,14 @@ const SettingsIcon = styled.div`
   cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 4px;
-  color: #333;
+  color:#4B86B4;
   transition: background 0.3s;
   z-index: 3;
 
   &:hover {
-    background: #e0e0e0;
+    background: #C4D559;
+    color:#ffffff;
+    border:0px
   }
 `;
 

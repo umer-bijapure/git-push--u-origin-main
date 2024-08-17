@@ -1,7 +1,8 @@
 import { faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { ChangeEvent, ReactNode, useState } from 'react';
+import React, { ChangeEvent, ReactNode, useEffect, useState } from 'react';
 import { CommonButtonSolidBlue } from './buttons';
+import axios from 'axios';
 
 interface CommonTextInputProps {
   id: string;
@@ -487,4 +488,112 @@ export const CommonDateSelect: React.FC<CommonDateSelectProps> = ({
     />
   );
 };
+
+
+
+
+interface User {
+  id: string;
+  email: string;
+}
+
+
+
+interface User {
+  id: string;
+  email: string;
+}
+
+interface CommonFormSearchSelectProps {
+  id: string;
+  title: string;
+  required?: boolean;
+  tooltip?: string;
+  value?: string; 
+  disabled?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  labelSide?: boolean;
+  defaultValue?: string;
+}
+
+export const CommonFormSearchSelect: React.FC<CommonFormSearchSelectProps> = ({
+  id,
+  title,
+  required,
+  tooltip,
+  value,
+  disabled,
+  onChange,
+  labelSide,
+  defaultValue,
+}) => {
+  const [searchTerm, setSearchTerm] = useState<string>(''); // Initialize searchTerm here
+  const [users, setUsers] = useState<User[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Fetch users from the backend
+    const fetchUsers = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get<User[]>('http://localhost:5116/api/Users/allusers');
+        setUsers(response.data);
+        setFilteredUsers(response.data);
+      } catch (error) {
+        setError('Failed to fetch users.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    // Filter users based on search term
+    setFilteredUsers(
+      users.filter(user => user.email.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+  }, [searchTerm, users]);
+
+  return (
+    <div className={`flex flex-1 ${labelSide ? 'flex-row items-center space-x-2' : 'flex-col'}`}>
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+        {title} {required && <span className="text-red-500">*</span>}
+      </label>
+      
+      {tooltip && <div className="tooltip">{tooltip}</div>}
+      
+      <input
+        type="text"
+        placeholder="Search by email..."
+        value={searchTerm} // Controlled input using searchTerm
+        onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm on input change
+        className="mt-1 mb-2 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+      />
+
+      <select
+        id={id}
+        value={value}
+        onChange={onChange}
+        defaultValue={defaultValue}
+        disabled={disabled}
+        className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+      >
+        {loading && <option>Loading...</option>}
+        {!loading && filteredUsers.length === 0 && <option>No users found</option>}
+        {filteredUsers.map(user => (
+          <option key={user.id} value={user.id}>
+            {user.email}
+          </option>
+        ))}
+      </select>
+      
+      {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+    </div>
+  );
+};
+
 

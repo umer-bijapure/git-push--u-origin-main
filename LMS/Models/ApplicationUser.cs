@@ -16,5 +16,5 @@ namespace LMS.Models
         public string State { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string Stream { get; set; } = string.Empty;
-    }
+        public List<UserCourse> UserCourses { get; set; } = new List<UserCourse>();    }
 }

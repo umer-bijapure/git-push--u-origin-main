@@ -171,7 +171,7 @@ const AddCourse: React.FC<AddCourseProps> = ({ onClose, loading, showError, erro
           id="ProfilePicture"
           accept="image/*"
           onChange={handleChange}
-          className="mt-1 block w-full text-sm text-[color:var(--textColor)]
+          className="mt-1 cursor-pointer block w-full text-sm text-[color:var(--textColor)]
           file:mr-4 file:py-2 file:px-4
           file:rounded-md file:border file:border-gray-300
           file:bg-gray-50 file:text-sm
